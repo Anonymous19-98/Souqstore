@@ -26,6 +26,8 @@ class Product(models.Model):
     PRDCreatedAt = models.DateTimeField(
         max_length=255, verbose_name=("Created At"))
     PRDSlug = models.SlugField(blank=True, null=True)
+    PRDIsBestseller = models.BooleanField(default=False)
+    PRDIsNew = models.BooleanField(default=True)
 
     class Meta():
         verbose_name = _("Product")
