@@ -1,2 +1,2 @@
-# Souqstore
-e-commerce
+# e-commerce
+Souqstore
