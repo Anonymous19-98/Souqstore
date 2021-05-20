@@ -25,9 +25,9 @@ class Product(models.Model):
         upload_to='product', verbose_name=("Product Image"), blank=True, null=True)
     PRDCreatedAt = models.DateTimeField(
         max_length=255, verbose_name=("Created At"))
-    PRDSlug = models.SlugField(blank=True, null=True)
-    PRDIsBestseller = models.BooleanField(default=False)
-    PRDIsNew = models.BooleanField(default=True)
+    PRDSlug = models.SlugField(blank=True, null=True, verbose_name=("Product Slug"))
+    PRDIsBestseller = models.BooleanField(default=False, verbose_name=("Bestseller"))
+    PRDIsNew = models.BooleanField(default=True, verbose_name=("New"))
 
     class Meta():
         verbose_name = _("Product")
