@@ -4,6 +4,7 @@ from django.db import models
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
+from django.urls import reverse
 
 # Create your models here.
 
@@ -25,18 +26,24 @@ class Product(models.Model):
         upload_to='product', verbose_name=("Product Image"), blank=True, null=True)
     PRDCreatedAt = models.DateTimeField(
         max_length=255, verbose_name=("Created At"))
-    PRDSlug = models.SlugField(blank=True, null=True, verbose_name=("Product Slug"))
-    PRDIsBestseller = models.BooleanField(default=False, verbose_name=("Bestseller"))
+    PRDSlug = models.SlugField(
+        blank=True, null=True, verbose_name=("Product Slug"))
+    PRDIsBestseller = models.BooleanField(
+        default=False, verbose_name=("Bestseller"))
     PRDIsNew = models.BooleanField(default=True, verbose_name=("New"))
-
-    class Meta():
-        verbose_name = _("Product")
-        verbose_name_plural = _("Products")
 
     def save(self, *args, **kwargs):
         if not self.PRDSlug:
             self.PRDSlug = slugify(self.PRDName)
         super(Product, self).save(*args, **kwargs)
+
+    class Meta():
+        verbose_name = _("Product")
+        verbose_name_plural = _("Products")
+
+    def get_absolute_url(self):
+
+        return reverse('products:product_details', kwargs={'slug': self.PRDSlug})
 
     def __str__(self):
         return self.PRDName
