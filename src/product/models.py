@@ -10,27 +10,27 @@ from django.urls import reverse
 
 
 class Product(models.Model):
-    PRDName = models.CharField(max_length=255, verbose_name=("Product Name"))
-    PRDDesc = models.TextField(verbose_name=("Product Description"))
+    PRDName = models.CharField(max_length=255, verbose_name=_("Product Name"))
+    PRDDesc = models.TextField(verbose_name=_("Product Description"))
     PRDCategory = models.ForeignKey(
-        'Category', on_delete=models.CASCADE, verbose_name=("Product Category"))
+        'Category', on_delete=models.CASCADE, verbose_name=_("Product Category"))
     PRDBrand = models.ForeignKey(
-        'settings.Brand', on_delete=models.CASCADE, verbose_name=("Product Brand"), blank=True, null=True)
+        'settings.Brand', on_delete=models.CASCADE, verbose_name=_("Product Brand"), blank=True, null=True)
     PRDPrice = models.DecimalField(
-        max_digits=5, decimal_places=2, verbose_name=("Product Price"))
+        max_digits=6, decimal_places=2, verbose_name=_("Product Price"))
     PRDCost = models.DecimalField(
-        max_digits=5, decimal_places=2, verbose_name=("Product Cost"))
+        max_digits=6, decimal_places=2, verbose_name=_("Product Cost"))
     PRDDiscount = models.DecimalField(
-        max_digits=5, decimal_places=2, verbose_name=("Product Discount"), blank=True, null=True)
+        max_digits=6, decimal_places=2, verbose_name=_("Product Discount"), blank=True, null=True)
     PRDImage = models.ImageField(
-        upload_to='product', verbose_name=("Product Image"), blank=True, null=True)
+        upload_to='product', verbose_name=_("Product Image"), blank=True, null=True)
     PRDCreatedAt = models.DateTimeField(
-        max_length=255, verbose_name=("Created At"))
+        max_length=255, verbose_name=_("Created At"))
     PRDSlug = models.SlugField(
-        blank=True, null=True, verbose_name=("Product Slug"))
+        blank=True, null=True, verbose_name=_("Product Slug"))
     PRDIsBestseller = models.BooleanField(
-        default=False, verbose_name=("Bestseller"))
-    PRDIsNew = models.BooleanField(default=True, verbose_name=("New"))
+        default=False, verbose_name=_("Bestseller"))
+    PRDIsNew = models.BooleanField(default=True, verbose_name=_("New"))
 
     def save(self, *args, **kwargs):
         if not self.PRDSlug:
@@ -50,14 +50,14 @@ class Product(models.Model):
 
 
 class Category(models.Model):
-    CATName = models.CharField(max_length=255, verbose_name=("Category Name"))
+    CATName = models.CharField(max_length=255, verbose_name=_("Category Name"))
     CATSub_Category = models.ForeignKey('self', limit_choices_to={
-                                        'CATSub_Category__isnull': True}, on_delete=models.CASCADE, blank=True, null=True, verbose_name=("Category Sub-Category"))
-    CATDesc = models.TextField(verbose_name=("Category Description"))
+                                        'CATSub_Category__isnull': True}, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Category Sub-Category"))
+    CATDesc = models.TextField(verbose_name=_("Category Description"))
     CATImg = models.ImageField(
-        upload_to='category', verbose_name=("Category Image"))
+        upload_to='category', verbose_name=_("Category Image"))
     CATCreatedAt = models.DateTimeField(
-        max_length=255, verbose_name=("Created At"), blank=True, null=True)
+        max_length=255, verbose_name=_("Created At"), blank=True, null=True)
 
     class Meta():
         verbose_name = _("Category")
@@ -69,9 +69,9 @@ class Category(models.Model):
 
 class Product_Alternative(models.Model):
     PALProduct = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="Main_prodect", verbose_name=("Product"))
+        Product, on_delete=models.CASCADE, related_name="Main_prodect", verbose_name=_("Product"))
     PALAlternatives = models.ManyToManyField(
-        Product, related_name="Alternative_prodects", verbose_name=("Alternatives"))
+        Product, related_name="Alternative_prodects", verbose_name=_("Alternatives"))
 
     class Meta():
         verbose_name = _("Product Alternative")
@@ -83,12 +83,12 @@ class Product_Alternative(models.Model):
 
 class Product_Accesories(models.Model):
     ACCProduct = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="Main_Accesorie_prodect", verbose_name=("Product"))
+        Product, on_delete=models.CASCADE, related_name="Main_Accesorie_prodect", verbose_name=_("Product"))
     ACCAlternatives = models.ManyToManyField(
-        Product, related_name="Accesories_prodects", verbose_name=("Accesories"))
+        Product, related_name="Accesories_prodects", verbose_name=_("Accesories"))
 
     class Meta():
-        verbose_name = _("Product Accesorie")
+        verbose_name = _("Product Accesory")
         verbose_name_plural = _("Product Accesories")
 
     def __str__(self):
